@@ -1,7 +1,5 @@
 package CS2020.assignment2;
-import java.awt.Color;
-
-
+import java.awt.*;
 import javax.swing.*;
 
 
@@ -21,6 +19,10 @@ public class App extends JFrame {
     JPanel  rightPanel;
     JPanel bottomPanel;
 
+    JButton newItem;
+    JButton save;
+    JButton delete;
+    JScrollPane scroll;
     JTextField productId;
 
     App(){
@@ -28,6 +30,7 @@ public class App extends JFrame {
         this.setTitle("<Osman Elyas> : Assignment 2");
         this.setSize(800,600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
 
         //implement the menu bar
         menuBar= new JMenuBar();
@@ -50,20 +53,41 @@ public class App extends JFrame {
 
         //seperate the frame into the needed panels
         mainPanel = new JPanel();
-        mainPanel.setBackground(Color.red);
-        mainPanel.setBounds(0,0,550, 450);
-
         rightPanel = new JPanel();
-        rightPanel.setBackground(Color.green);
-        rightPanel.setBounds(550,0,250, 450);
-
         bottomPanel = new JPanel();
-        bottomPanel.setBackground(Color.blue);
-        bottomPanel.setBounds(50,100,800, 100);
 
-        this.add(mainPanel);
-        this.add(rightPanel);
-        this.add(bottomPanel);
+        mainPanel.setBackground(Color.red);
+        rightPanel.setBackground(Color.green);
+        bottomPanel.setBackground(Color.blue);
+
+        mainPanel.setPreferredSize(new Dimension(550, 450));
+        rightPanel.setPreferredSize(new Dimension(250, 450));
+        bottomPanel.setPreferredSize(new Dimension(800, 100));
+
+        //Add ScrollBar
+        final JTextArea textArea = new JTextArea(10, 20);
+        scroll = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        textArea.setSize(250,450);
+        rightPanel.add(scroll);
+        
+        
+        //rightPanel.add(scrollBar);
+
+        //Add buttons to bottom of GUI
+        newItem = new JButton();
+        newItem.setText("New Item");
+        save = new JButton();
+        save.setText("Save");
+        delete = new JButton();
+        delete.setText("Delete Selected");
+        
+        bottomPanel.add(newItem);
+        bottomPanel.add(save);
+        bottomPanel.add(delete);
+
+        this.add(mainPanel,BorderLayout.CENTER);
+        this.add(rightPanel,BorderLayout.EAST);
+        this.add(bottomPanel,BorderLayout.SOUTH);
 
 
         this.setVisible(true);     //Make frame visible
