@@ -23,7 +23,6 @@ public class App extends JFrame {
     JButton save;
     JButton delete;
     JScrollPane scroll;
-    JTextField productId;
 
     App(){
         // Create the main frame that will be used
@@ -64,14 +63,29 @@ public class App extends JFrame {
         rightPanel.setPreferredSize(new Dimension(250, 450));
         bottomPanel.setPreferredSize(new Dimension(800, 100));
 
+        //Product details section in left hand side
+        mainPanel.setLayout(new GridLayout());
+        JLabel label = new JLabel("Product Id");
+        JTextField product = new JTextField("8101ac25-fcf1-4c32-a3f1-2a946");
+        JLabel label2 = new JLabel("Name");
+        JTextField name = new JTextField(20);
+
+        mainPanel.add(label);
+        mainPanel.add(product);
+        mainPanel.add(label2);
+        mainPanel.add(name);
+
+        
+        /*mainPanel.add(new JTextField("Name",));
+        mainPanel.add(new JTextField("Product ID"));
+        mainPanel.add(new JTextField("Product ID"));
+        mainPanel.add(new JTextField("Product ID"));*/
+
         //Add ScrollBar
-        final JTextArea textArea = new JTextArea(10, 20);
+        final JTextArea textArea = new JTextArea(26, 22);
         scroll = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        textArea.setSize(250,450);
         rightPanel.add(scroll);
         
-        
-        //rightPanel.add(scrollBar);
 
         //Add buttons to bottom of GUI
         newItem = new JButton();
