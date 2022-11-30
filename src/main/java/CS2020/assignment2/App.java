@@ -64,16 +64,30 @@ public class App extends JFrame {
         bottomPanel.setPreferredSize(new Dimension(800, 100));
 
         //Product details section in left hand side
-        mainPanel.setLayout(new GridLayout());
+        //mainPanel.setLayout(new GridLayout());
         JLabel label = new JLabel("Product Id");
         JTextField product = new JTextField("8101ac25-fcf1-4c32-a3f1-2a946");
         JLabel label2 = new JLabel("Name");
-        JTextField name = new JTextField(20);
+        
+
+        JLabel label3 = new JLabel("Item Type");
+        String[] items = { "Select type", "Homeware", "Hobby", "Garden" };
+        JComboBox<String> itemList = new JComboBox<>(items);
+        itemList.setSelectedIndex(0);
+        JTextField name = new JTextField(20);        
+        JLabel label4 = new JLabel("Quantity");
+        JTextField quantity = new JTextField(5);
+        JCheckBox delivery = new JCheckBox("Available for next day delivery");
 
         mainPanel.add(label);
         mainPanel.add(product);
         mainPanel.add(label2);
         mainPanel.add(name);
+        mainPanel.add(label3);
+        mainPanel.add(itemList);
+        mainPanel.add(label4);
+        mainPanel.add(quantity);
+        mainPanel.add(delivery);
 
         
         /*mainPanel.add(new JTextField("Name",));
