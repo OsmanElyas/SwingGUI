@@ -10,30 +10,26 @@ import javax.swing.border.Border;
  */
 public class App extends JFrame {
     
+    JMenuBar menuBar;
+    JMenu actionsMenu;
+    JMenuItem about;
+    JMenuItem importData;
+    JMenuItem inventory;
+    JMenuItem export;
+    JPanel mainPanel;
+    JPanel  rightPanel;
+    JPanel bottomPanel;
 
+    JButton newItem;
+    JButton save;
+    JButton delete;
+    JScrollPane scroll;
 
-    public static void ProductListGUI(){
-
-        JMenuBar menuBar;
-        JMenu actionsMenu;
-        JMenuItem about;
-        JMenuItem importData;
-        JMenuItem inventory;
-        JMenuItem export;
-        JPanel mainPanel;
-        JPanel  rightPanel;
-        JPanel bottomPanel;
-    
-        JButton newItem;
-        JButton save;
-        JButton delete;
-        JScrollPane scroll;
-
-        JFrame frame = new JFrame();
+    App(){
         // Create the main frame that will be used
-        frame.setTitle("<Osman Elyas> : Assignment 2");
-        frame.setSize(800,600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("<Osman Elyas> : Assignment 2");
+        this.setSize(800,600);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
 
         //implement the menu bar
@@ -52,7 +48,7 @@ public class App extends JFrame {
         actionsMenu.add(export);
 
         menuBar.add(actionsMenu);
-        frame.setJMenuBar(menuBar);
+        this.setJMenuBar(menuBar);
         
 
         //seperate the frame into the needed panels
@@ -121,7 +117,7 @@ public class App extends JFrame {
         
 
         //Add ScrollBar
-        rightPanel.setLayout(new GridLayout(1,0));
+        rightPanel.setLayout(new GridLayout());
         final JTextArea textArea = new JTextArea();
         scroll = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
  
@@ -149,25 +145,27 @@ public class App extends JFrame {
 
         
         //add the panels to the main frame
-        frame.add(mainPanel,BorderLayout.CENTER);
-        frame.add(rightPanel,BorderLayout.EAST);
-        frame.add(bottomPanel,BorderLayout.SOUTH);
+        this.add(mainPanel,BorderLayout.CENTER);
+        this.add(rightPanel,BorderLayout.EAST);
+        this.add(bottomPanel,BorderLayout.SOUTH);
 
         
 
 
-        frame.setVisible(true);     //Make frame visible
+        this.setVisible(true);     //Make frame visible
 
     }
+
+    public class ProductListGUI{
+        
+    }
+
+
     
-    public static void main( String[] args ){
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {;
-        public void run(){
-            ProductListGUI();
-        }
+    public static void main( String[] args )
+    {
+        new App();
 
-
-        });
     }
         
         

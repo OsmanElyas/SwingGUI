@@ -7,7 +7,7 @@ public class Product {
     String name;
 
     //setter and getter methods for the 4 main variables
-    
+
     public String getProductId(){
         return productId;
     }
