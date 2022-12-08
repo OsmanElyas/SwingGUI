@@ -1,6 +1,6 @@
 package CS2020.assignment2;
 
-public class Product {
+public class Product extends ProductListGUI{
     String productId;
     String type; 
     int quantity;
@@ -11,9 +11,9 @@ public class Product {
     public String getProductId(){
         return productId;
     }
-    public String getType(){
-        return type;
-    }
+    //public String getType(){
+       // return type;
+   // }
     public int getQuantity(){
         return quantity;
     }
@@ -30,5 +30,7 @@ public class Product {
         this.name = name;
     }
     
-    
+    public void setProductId(){
+
+    }
 }
