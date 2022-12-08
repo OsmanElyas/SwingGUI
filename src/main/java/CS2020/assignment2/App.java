@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 
+
 /**
  * Hello world!
  *
@@ -25,7 +26,8 @@ public class App extends JFrame {
     JButton delete;
     JScrollPane scroll;
 
-    App(){
+// Constructor that creates the elements of the GUI
+    private void ProductListGUI(){
         // Create the main frame that will be used
         this.setTitle("<Osman Elyas> : Assignment 2");
         this.setSize(800,600);
@@ -156,17 +158,16 @@ public class App extends JFrame {
 
     }
 
-    public class ProductListGUI{
-        
+//Creating an instance of ProductListGUI class and running it
+    public App(){
+        ProductListGUI();
     }
 
-
-    
-    public static void main( String[] args )
-    {
-        new App();
-
+    public static void main (String[] args){
+        App app = new App();
+        app.getAccessibleContext();
     }
+
         
         
 }
