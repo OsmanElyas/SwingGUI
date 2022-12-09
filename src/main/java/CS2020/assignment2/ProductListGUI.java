@@ -191,6 +191,7 @@ public class ProductListGUI extends JFrame implements ActionListener, ListSelect
     delete.addActionListener(new ActionListener() {;
         public void actionPerformed(ActionEvent e) {
             int selectedIndex = productList.getSelectedIndex();
+            productList.setSelectedIndex(productList.locationToIndex(getLocation()));
 
             int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the selected item?", "Confirm deletion", JOptionPane.YES_NO_OPTION);
             if(confirm == 0){
@@ -200,20 +201,58 @@ public class ProductListGUI extends JFrame implements ActionListener, ListSelect
         
     };
 });
+about.addActionListener(new ActionListener() {    
+    public void actionPerformed(ActionEvent e) {
+        JOptionPane.showMessageDialog(null,"Assignment 2 App V.0.1");
+        
+    }
+    });
+    
 
+    
 //delete with right click
 popupMenu = new JPopupMenu();
 deleteMenuItem = new JMenuItem("Delete");
 popupMenu.add(deleteMenuItem);
 
-productList.addMouseListener(new MouseAdapter() {
+
+
+/* productList.addMouseListener(new MouseListener() {
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(SwingUtilities.isRightMouseButton(e)){
+            popupMenu.show(e.getComponent(), e.getX(), e.getY());
+        }
+        
+    }
+
+    @Override
     public void mousePressed(MouseEvent e) {
-    if (e.isPopupTrigger()) {
-    popupMenu.show(e.getComponent(), e.getX(), e.getY());
+        // 
+        
     }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // 
+        
     }
-    });
-    
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // 
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // 
+        
+    }}); */
+
+
     
 
     // Add a listener to the list that listens for the list selection
@@ -226,6 +265,7 @@ productList.addMouseListener(new MouseAdapter() {
 // save button action listener adds the product to the jlist and displays it when save button is clicked
      @Override
     public void actionPerformed(ActionEvent e) {
+
          // Validation checks
 
          //No empty name field

@@ -1,7 +1,4 @@
 package CS2020.assignment2;
-//import java.util.UUID;
-//import java.awt.event.*;
-//import javax.swing.event.MouseEventListener;
 
 public class Product {
     private String productId;
