@@ -4,10 +4,14 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import java.util.ArrayList;
 import java.util.UUID;
 
 
-public class ProductListGUI extends JFrame implements ActionListener{
+public class ProductListGUI extends JFrame implements ActionListener, ListSelectionListener  {
     JMenuBar menuBar;
     JMenu actionsMenu;
     JMenuItem about;
@@ -22,16 +26,22 @@ public class ProductListGUI extends JFrame implements ActionListener{
     JTextField name;
     JTextField quantity;
     JComboBox<String> itemList;
+    JCheckBox delivery;
+    
 
     JButton newItem;
     JButton save;
     JButton delete;
     JScrollPane scroll;
     JList<String> productList;
+
     DefaultListModel<String> listmodel = new DefaultListModel<>();
 
+    Product p;
+    ArrayList<Product> newList = new ArrayList<>();
 
-
+    JPopupMenu popupMenu;
+    JMenuItem deleteMenuItem;
 
 // method that creates the elements of the GUI
     public ProductListGUI(){
@@ -89,14 +99,13 @@ public class ProductListGUI extends JFrame implements ActionListener{
         itemList.setSelectedIndex(0);
 
         JLabel label2 = new JLabel("Name");
-        
         name = new JTextField(20); 
         
 
         JLabel label4 = new JLabel("Quantity");
         quantity = new JTextField(5);
 
-        JCheckBox delivery = new JCheckBox("Available for next day delivery");
+        delivery = new JCheckBox("Available for next day delivery");
 
         //add labels to the panel
         mainPanel.add(label);
@@ -161,11 +170,11 @@ public class ProductListGUI extends JFrame implements ActionListener{
         this.add(mainPanel,BorderLayout.CENTER);
         this.add(rightPanel,BorderLayout.EAST);
         this.add(bottomPanel,BorderLayout.SOUTH);
+        
 
         save.addActionListener(this);       //add action listener for save button
 
          //action listener for new item button
-        //@Override
             newItem.addActionListener(new ActionListener() {;
             public void actionPerformed(ActionEvent e) {
             //Action Listener
@@ -174,66 +183,110 @@ public class ProductListGUI extends JFrame implements ActionListener{
             quantity.setText("0");
             itemList.setSelectedIndex(0);
             delivery.setSelected(false);
-
-/*             String theName = name.getText();
-            String theQuantity = quantity.getText();
-            DefaultListModel<String> listmodel = new DefaultListModel<String>();
-            listmodel.addElement(theName + "("+ theQuantity + ")");
-            productList.setModel(listmodel);
-           
-            System.out.println("Hello");
-            System.out.println(listmodel); */
             
         };
-    });  
+    });
+
+    //action listener for delete button
+    delete.addActionListener(new ActionListener() {;
+        public void actionPerformed(ActionEvent e) {
+            int selectedIndex = productList.getSelectedIndex();
+
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the selected item?", "Confirm deletion", JOptionPane.YES_NO_OPTION);
+            if(confirm == 0){
+                listmodel.removeElementAt(selectedIndex);
+                
+            };
+        
+    };
+});
+
+//delete with right click
+popupMenu = new JPopupMenu();
+deleteMenuItem = new JMenuItem("Delete");
+popupMenu.add(deleteMenuItem);
+
+productList.addMouseListener(new MouseAdapter() {
+    public void mousePressed(MouseEvent e) {
+    if (e.isPopupTrigger()) {
+    popupMenu.show(e.getComponent(), e.getX(), e.getY());
+    }
+    }
+    });
+    
+    
+
+    // Add a listener to the list that listens for the list selection
+    productList.getSelectionModel().addListSelectionListener(this); 
         this.setVisible(true);     //Make frame visible
         
-
     }
 
 
-// action listener adds the eproduct to the jlist and displays it when save button is clicked
+// save button action listener adds the product to the jlist and displays it when save button is clicked
      @Override
     public void actionPerformed(ActionEvent e) {
-        //Validation checks to make sure input is correct
+         // Validation checks
 
-        //if no namae is entered
-        if (name.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null,"Please enter a name for the product" );
+         //No empty name field
+         if (name.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null,"Please enter a name for the product");
+        }// item type is chosen
+        else if (itemList.getSelectedItem().equals("Select type")) {
+            JOptionPane.showMessageDialog(null,"Please select a type for the product");
+        }
+        //correct input for quantity
+        else {
+            try {
+                final String text = quantity.getText();
+                int qty = Integer.parseInt(text);
+                if (qty < 0 || text.isEmpty() == true) {
+                    JOptionPane.showMessageDialog(null,"Please enter a non-negative integer for the quantity");
+                }
+                else {
+                    // Perform the save operation
+                    System.out.println("Button Clicked");
+                    String theName = name.getText();
+                    String theQuantity = quantity.getText();
+
+                    final String element = theName + "("+ theQuantity + ")";
+                        p = new Product(
+                        products.getText(),
+                        name.getText(),
+                        itemList.getSelectedItem(),
+                        quantity.getText(),
+                        delivery.isSelected());
+                        newList.add(p);
+
+                    listmodel.addElement(element); 
+                    productList.setModel(listmodel);
+                    
+                }
+            }
+            catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null,"Please enter a a valid integer for quantity");
+            }
+        }
+    }
+
+  // Implement the valueChanged method of the ListSelectionListener interface
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (!e.getValueIsAdjusting()) {
+            delete.setEnabled(true);
+            int index = productList.getSelectedIndex();
+            Product p = newList.get(index);
+            // Handle the selection change here
+            products.setText(p.getProductId());
+            name.setText(p.getName());
+            itemList.setSelectedItem(p.get_Type());
+            quantity.setText(p.getQuantity());
+            delivery.setSelected(p.getDelivery());
+            
             
           }
-          //if no type is selected
-        else if (itemList.getSelectedItem().equals("Select type")) {
-            JOptionPane.showMessageDialog(null,"Please select a type for the product" );
-           
-          }else{
-          //if negative number is chosen
+    }
 
-        try{      
-            final String text = quantity.getText();
-            int qty = Integer.parseInt(text);
-            if (qty < 0 || text.isEmpty() == true) {
-                JOptionPane.showMessageDialog(null,"Please enter a non-negative integer for the quantity");
-                
-            } 
-        }   catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null,"Please enter a a valid integer for quantity");
-                
-              }
-        }
-
-
- 
-         System.out.println("Button Clicked");
-            String theName = name.getText();
-            String theQuantity = quantity.getText();
-            
-            final String element = theName + "("+ theQuantity + ")";
-            listmodel.addElement(element);
-            productList.setModel(listmodel);
-            System.out.println(listmodel);
-                    
-    } 
 
 
 

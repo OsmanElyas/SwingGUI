@@ -1,36 +1,42 @@
 package CS2020.assignment2;
-import java.util.UUID;
+//import java.util.UUID;
 //import java.awt.event.*;
 //import javax.swing.event.MouseEventListener;
 
-public class Product extends ProductListGUI{
-    private UUID productId;
-    private String type; 
-    private int quantity;
+public class Product {
+    private String productId;
     private String name;
+    private Object type; 
+    private String quantity;
+    private boolean delivery;
+    
 
     //setter and getter methods for the 4 main variables
-    public Product(){
-        this.productId = UUID.randomUUID();
+    public Product(String productId, String name, Object type, String quantity, boolean delivery){
+        this.productId = productId;
+        this.name = name;
+        this.type = type;
+        this.quantity = quantity;
+        this.delivery = delivery;
     }
 
-    public UUID getProductId(){
+    public String getProductId(){
         return productId;
     }
-    public void setProductId(UUID productId){
+    public void setProductId(String productId){
         this.productId = productId;
     }
-    public String get_Type(){
+    public Object get_Type(){
        return type;
     }
-    public void setType(String type) {
+    public void setType(Object type) {
         this.type = type;
       }
     
-    public int getQuantity(){
+    public String getQuantity(){
         return quantity;
     }
-    public void setQuantity(int quantity){
+    public void setQuantity(String quantity){
         this.quantity = quantity;
     }
 
@@ -41,5 +47,8 @@ public class Product extends ProductListGUI{
         this.name = name;
     }
 
+    public boolean getDelivery(){
+        return delivery;
+    }
 
 }
