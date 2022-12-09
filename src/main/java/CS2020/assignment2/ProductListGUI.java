@@ -2,10 +2,13 @@ package CS2020.assignment2;
 
 import javax.swing.JFrame;
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.Border;
+import java.util.UUID;
 
-public class ProductListGUI extends JFrame{
+
+public class ProductListGUI extends JFrame implements ActionListener{
     JMenuBar menuBar;
     JMenu actionsMenu;
     JMenuItem about;
@@ -16,10 +19,18 @@ public class ProductListGUI extends JFrame{
     JPanel  rightPanel;
     JPanel bottomPanel;
 
+    JTextField products;
+    JTextField name;
+    JTextField quantity;
+
     JButton newItem;
     JButton save;
     JButton delete;
     JScrollPane scroll;
+    JList<String> productList;
+    //List<Product> product;
+   // DefaultListModel<Product> productListModel;
+
 
 
 // method that creates the elements of the GUI
@@ -66,11 +77,11 @@ public class ProductListGUI extends JFrame{
 
 
         //Define the Product details section in left hand side 
-
-        
-
         JLabel label = new JLabel("Product Id");
-        JTextField product = new JTextField();
+        products = new JTextField();
+
+        // Set the ProductID text field to be automatically populated with a unique identifier
+        products.setText(UUID.randomUUID().toString());
         
         JLabel label3 = new JLabel("Item Type");
         String[] items = { "Select type", "Homeware", "Hobby", "Garden" };
@@ -79,17 +90,17 @@ public class ProductListGUI extends JFrame{
 
         JLabel label2 = new JLabel("Name");
         
-        JTextField name = new JTextField(20); 
+        name = new JTextField(20); 
         
 
         JLabel label4 = new JLabel("Quantity");
-        JTextField quantity = new JTextField(5);
+        quantity = new JTextField(5);
 
         JCheckBox delivery = new JCheckBox("Available for next day delivery");
 
         //add labels to the panel
         mainPanel.add(label);
-        mainPanel.add(product);
+        mainPanel.add(products);
         mainPanel.add(label2);
         
         mainPanel.add(name);
@@ -107,26 +118,31 @@ public class ProductListGUI extends JFrame{
         label3.setBounds(10, 90, 200, 100);
         label4.setBounds(10,  130, 200, 100);
 
-        product.setBounds(150, 50, 200, 25);
+        products.setBounds(150, 50, 250, 25);
         name.setBounds(150, 90, 200, 25);
         itemList.setBounds(150, 130, 200, 25);
         quantity.setBounds(150,  170, 200, 25);
         delivery.setBounds(10,210,200,100);
         
 
-        //Add ScrollBar
+        //Add ScrollBar with a JList
+        productList = new JList<String>();
         rightPanel.setLayout(new GridLayout());
         final JTextArea textArea = new JTextArea();
         scroll = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
- 
+        scroll.add(productList);
         rightPanel.add(scroll);
         
 
         //Add buttons to bottom of GUI
         newItem = new JButton();
         newItem.setText("New Item");
-        save = new JButton();
+
+        
+        save = new JButton();        
         save.setText("Save");
+        
+
         delete = new JButton();
         delete.setText("Delete Selected");
         delete.setEnabled(false);
@@ -147,10 +163,45 @@ public class ProductListGUI extends JFrame{
         this.add(rightPanel,BorderLayout.EAST);
         this.add(bottomPanel,BorderLayout.SOUTH);
 
-        
+        //action listener for save button
+        save.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent evt){
+                actionPerformed(evt);
+            }
+        });
+
+       /*  //@Override
+        save.addActionListener(new ActionListener() {;
+        public void actionPerformed(ActionEvent e) {
+            //Action Listener
+            String theName = name.getText();
+            String theQuantity = quantity.getText();
+            DefaultListModel<String> listmodel = new DefaultListModel<String>();
+            listmodel.addElement(theName + "("+ theQuantity + ")");
+            productList.setModel(listmodel);
+            System.out.println("Hello");
+        };
+    });*/
         this.setVisible(true);     //Make frame visible
 
     }
 
-    
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // 
+        String theName = name.getText();
+        String theQuantity = quantity.getText();
+        DefaultListModel<String> listmodel = new DefaultListModel<String>();
+        listmodel.addElement(theName + "("+ theQuantity + ")");
+        productList.setModel(listmodel);
+        System.out.println("Hello");
+    }
+
+
+
 }
+
+
+
