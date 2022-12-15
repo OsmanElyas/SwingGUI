@@ -198,9 +198,9 @@ public class ProductListGUI extends JFrame implements ActionListener, ListSelect
                 listmodel.removeElementAt(selectedIndex);
                 
             };
-        
     };
 });
+
 about.addActionListener(new ActionListener() {    
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(null,"Assignment 2 App V.0.1");
@@ -251,7 +251,9 @@ popupMenu.add(deleteMenuItem);
         // 
         
     }}); */
+//save.addActionListener(new ActionEvent e){
 
+//}
 
     
 
